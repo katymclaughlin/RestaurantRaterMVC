@@ -17,5 +17,16 @@ namespace RestaurantRaterMVC.Data
 
         [Required, MaxLength(100)]
         public string Location { get; set; } = string.Empty;
+        public List<Rating> Ratings { get; set; } = new();
+        public double? AverageRating
+        {
+            get
+            {
+                if (Ratings.Count == 0)
+                    return 0;
+
+                return Ratings.Select(ref => r.Score).Sum() / Ratings.Count;
+            }
+        }
     }
 }
