@@ -13,6 +13,17 @@ namespace RestaurantRaterMVC.Services.Restaurants
         {
             _context = context;
         }
+        
+        public async Task<bool> CreateRestaurantAsync(RestaurantCreate model)
+        {
+            Restaurant entity = new()
+            {
+                Name = model.Name,
+                Location = model.Location
+            };
+            _context.Restaurants.Add(entity);
+            return await _context.SaveChangesAsync() == 1;
+        }
         public async Task<IEnumerable<RestaurantListItem>> GetAllRestaurants()
         {
             List<RestaurantListItem> restaurants = await _context.Restaurants
