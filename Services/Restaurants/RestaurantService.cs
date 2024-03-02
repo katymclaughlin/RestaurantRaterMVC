@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RestaurantRaterMVC.Models.Restaurant;
+using RestaurantRaterMVC.Data;
 
 namespace RestaurantRaterMVC.Services.Restaurants
 {
@@ -37,6 +38,21 @@ namespace RestaurantRaterMVC.Services.Restaurants
                 .ToListAsync();
     
             return restaurants;
+        }
+
+        public async Task<RestaurantDetail?> GetRestaurantAsync(int id)
+        {
+            Restaurant? restaurant = await _context.Restaurants
+            .Include(r => r.Ratings)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+            return restaurant is null ? null : new()
+            {
+                Id = restaurant.Id,
+                Name = restaurant.Name,
+                Location = restaurant.Location,
+                Score = restaurant.AverageRating
+            };
         }
     }
 }
