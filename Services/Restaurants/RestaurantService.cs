@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using RestaurantRaterMVC.Models.Restaurant;
 using RestaurantRaterMVC.Data;
 
-namespace RestaurantRaterMVC.Services.Restaurants
-{
+namespace RestaurantRaterMVC.Services.Restaurants;
+
     public class RestaurantService : IRestaurantService
     {
         private RestaurantDbContext _context;
@@ -55,7 +55,7 @@ namespace RestaurantRaterMVC.Services.Restaurants
             };
         }
     }
-}
+
 
 
 
