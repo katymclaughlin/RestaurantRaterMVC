@@ -67,6 +67,19 @@ namespace RestaurantRaterMVC.Services.Restaurants
             entity.Location = model.Location;
             return await _context.SaveChangesAsync() == 1;
         }
+        public async Task<bool> DeleteRestaurantAsync(int id) //defintes our method signature and scope
+        {
+            Restaurant? entity = await _context.Restaurants.FindAsync(id); //we search our Restaurants database for the matching id parameter
+            if (entity is null) //checks to see if the target entity is null
+                return false; //the delete failed
+
+            var ratings = await _context.Ratings.Where(r => r.RestaurantId == entity.Id).ToListAsync();
+            _context.Ratings.RemoveRange(ratings); //remove any associated Ratings from the database
+            await _context.SaveChangesAsync();
+
+            _context.Restaurants.Remove(entity); //tells the database to remove the found entity that was not null
+            return await _context.SaveChangesAsync() == 1; //save changes to the database
+        }
     }
 }
 

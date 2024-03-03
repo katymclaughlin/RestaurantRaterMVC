@@ -12,5 +12,6 @@ namespace RestaurantRaterMVC.Services.Restaurants
         Task<List<RestaurantListItem>> GetAllRestaurantsAsync();
         Task<RestaurantDetail?> GetRestaurantAsync(int id);
         Task<bool> UpdateRestaurantAsync(RestaurantEdit model);
+        Task<bool> DeleteRestaurantAsync(int id);
     }
 }
