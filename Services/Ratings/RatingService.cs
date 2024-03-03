@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RestaurantRaterMVC.Data;
+using RestaurantRaterMVC.Models.Rating;
 
 namespace RestaurantRaterMVC.Services.Ratings;
 
@@ -12,5 +13,33 @@ namespace RestaurantRaterMVC.Services.Ratings;
         public RatingService(RestaurantDbContext context)
         {
         _context = context;
+        }
+        public async Task<List<RatingListItem>> GetRatingsAsync()
+        {
+            var ratings = await _context.Ratings
+                .Include(r => r.Restaurant)
+                .Select(r => new RatingListItem
+                {
+                    RestaurantName = r.Restaurant.Name,
+                    Score = r.Score
+                })
+                .ToListAsync();
+
+            return ratings;
+        }
+
+        public async Task<List<RatingListItem>> GetRestaurantRatingsAsync(int restaurantId)
+        {
+            var ratings = await _context.Ratings
+                .Include(r => r.Restaurant)
+                .Where(r => r.RestaurantId == restaurantId)
+                .Select(r => new RatingListItem
+                {
+                    RestaurantName = r.Restaurant.Name,
+                    Score = r.Score
+                })
+                .ToListAsync();
+
+            return ratings;
         }
     }
