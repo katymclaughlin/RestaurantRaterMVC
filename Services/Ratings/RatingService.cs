@@ -14,6 +14,18 @@ namespace RestaurantRaterMVC.Services.Ratings;
         {
         _context = context;
         }
+
+        public async Task<bool> CreateRatingAsync(RatingCreate model)
+        {
+            Rating entity = new()
+            {
+                RestaurantId = model.RestaurantId,
+                Score = model.Score
+            };
+
+            _context.Ratings.Add(entity);
+            return await _context.SaveChangesAsync() == 1;
+        }
         public async Task<List<RatingListItem>> GetRatingsAsync()
         {
             var ratings = await _context.Ratings
