@@ -54,4 +54,14 @@ namespace RestaurantRaterMVC.Services.Ratings;
 
             return ratings;
         }
+
+        public async Task<bool> DeleteRatingAsync (int id)
+        {
+            var ratings = await _context.Ratings.FindAsync(id);
+            if (ratings is null)
+                return false;
+
+            _context.Ratings.Remove(ratings);
+            return await _context.SaveChangesAsync() == 1;    
+        }
     }

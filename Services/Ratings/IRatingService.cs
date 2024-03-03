@@ -11,5 +11,6 @@ namespace RestaurantRaterMVC.Services.Ratings
         Task<bool> CreateRatingAsync(RatingCreate model);
         Task<List<RatingListItem>> GetRatingsAsync();
         Task<List<RatingListItem>> GetRestaurantRatingsAsync(int restaurantId); 
+        Task<bool> DeleteRatingAsync(int id);
     }
 }
