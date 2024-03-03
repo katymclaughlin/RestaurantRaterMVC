@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using RestaurantRaterMVC.Models.Restaurant;
 using RestaurantRaterMVC.Data;
 
-namespace RestaurantRaterMVC.Services.Restaurants;
+namespace RestaurantRaterMVC.Services.Restaurants
+{
 
     public class RestaurantService : IRestaurantService
     {
@@ -54,8 +55,20 @@ namespace RestaurantRaterMVC.Services.Restaurants;
                 Score = restaurant.AverageRating
             };
         }
-    }
 
+        public async Task<bool> UpdateRestaurantAsync(RestaurantEdit model)
+        {
+            Restaurant? entity = await _context.Restaurants.FindAsync(model.Id);
+
+            if (entity is null)
+                return false;
+
+            entity.Name = model.Name;
+            entity.Location = model.Location;
+            return await _context.SaveChangesAsync() == 1;
+        }
+    }
+}
 
 
 

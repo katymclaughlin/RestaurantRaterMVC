@@ -51,5 +51,37 @@ namespace RestaurantRaterMVC.Controllers;
 
             return RedirectToAction(nameof(Index));
         }
+
+//NOTE - GET METHOD - Get the Id of the Restaurant / Create an edit method for updating restaurant        
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            RestaurantDetail? restaurant = await _service.GetRestaurantAsync(id);
+            if (restaurant is null)
+            return NotFound();
+
+            RestaurantEdit model = new()
+            {
+                Id = restaurant.Id,
+                Name = restaurant.Name ?? "",
+                Location = restaurant.Location ?? ""
+            };
+
+            return View(model);
+        }
+
+//NOTE - POST METHOD - Takes the Id of the Restaurant, as well as the RestaurantEdit model, which will contain the new data
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, RestaurantEdit model)
+        {
+            if (!ModelState.IsValid)
+            return View(model);
+
+            if (await _service.UpdateRestaurantAsync(model))
+            return RedirectToAction(nameof(Details), new { id = id });
+
+            ModelState.AddModelError("Save Error", "Could not update the Restaurant. Please try again.");
+            return View(model);
+        }
     }
 
