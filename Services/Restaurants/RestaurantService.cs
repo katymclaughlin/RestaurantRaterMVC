@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using RestaurantRaterMVC.Models.Restaurant;
 using RestaurantRaterMVC.Data;
 
-namespace RestaurantRaterMVC.Services.Restaurants
-{
+namespace RestaurantRaterMVC.Services.Restaurants;
 
     public class RestaurantService : IRestaurantService
     {
@@ -26,7 +25,9 @@ namespace RestaurantRaterMVC.Services.Restaurants
             _context.Restaurants.Add(entity);
             return await _context.SaveChangesAsync() == 1;
         }
-        public async Task<IEnumerable<RestaurantListItem>> GetAllRestaurants()
+        
+        public async Task<List<RestaurantListItem>> GetAllRestaurantsAsync()
+        //public async Task<IEnumerable<RestaurantListItem>> GetAllRestaurants()
         {
             List<RestaurantListItem> restaurants = await _context.Restaurants
                 .Include(r => r.Ratings)
@@ -81,7 +82,7 @@ namespace RestaurantRaterMVC.Services.Restaurants
             return await _context.SaveChangesAsync() == 1; //save changes to the database
         }
     }
-}
+
 
 
 
