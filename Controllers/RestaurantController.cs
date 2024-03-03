@@ -83,5 +83,24 @@ namespace RestaurantRaterMVC.Controllers;
             ModelState.AddModelError("Save Error", "Could not update the Restaurant. Please try again.");
             return View(model);
         }
+
+//NOTE - GET & POST METHOD - Deleting a Restaurant
+        [HttpGet]
+        public async Task Delete(int id)
+        {
+            RestaurantDetail? restaurant = await _service.GetRestaurantAsync(id);
+            if (restaurant is null)
+                return RedirectToAction(nameof(Index));
+
+            return View(restaurant);
+        }
+
+        [HttpPost]
+        [ActionName(nameof(Delete))]
+        public async Task<IActionResult> ConfirmDelete(int id)
+        {
+            await _service.DeleteRestaurantAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 

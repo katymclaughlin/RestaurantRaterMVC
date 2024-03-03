@@ -67,7 +67,7 @@ namespace RestaurantRaterMVC.Services.Restaurants
             entity.Location = model.Location;
             return await _context.SaveChangesAsync() == 1;
         }
-        public async Task<bool> DeleteRestaurantAsync(int id) //defintes our method signature and scope
+        public async Task<bool> DeleteRestaurantAsync(int id) //defines our method signature and scope
         {
             Restaurant? entity = await _context.Restaurants.FindAsync(id); //we search our Restaurants database for the matching id parameter
             if (entity is null) //checks to see if the target entity is null
