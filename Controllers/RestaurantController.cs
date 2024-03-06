@@ -86,7 +86,7 @@ namespace RestaurantRaterMVC.Controllers;
 
 //NOTE - GET & POST METHOD - Deleting a Restaurant
         [HttpGet]
-        public async Task Delete(int id)
+        public async Task<IActionResult> Delete (int id)
         {
             RestaurantDetail? restaurant = await _service.GetRestaurantAsync(id);
             if (restaurant is null)

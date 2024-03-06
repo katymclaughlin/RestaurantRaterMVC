@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantRaterMVC.Services.Ratings;
 using RestaurantRaterMVC.Models.Rating;
+using RestaurantRaterMVC.Data;
 
 namespace RestaurantRaterMVC.Controllers
 {
@@ -38,5 +39,14 @@ namespace RestaurantRaterMVC.Controllers
                 await _service.CreateRatingAsync(model);
                 return RedirectToAction("Details", "Restaurant", new { id = model.RestaurantId });
         }
+        /*[HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            RestaurantDetail? restaurant = await _service.GetRestaurantRatingsAsync(id);
+            if (restaurant is null)
+                return RedirectToAction(nameof(Index));
+
+            return View(restaurant);
+        }*/
     }
 }

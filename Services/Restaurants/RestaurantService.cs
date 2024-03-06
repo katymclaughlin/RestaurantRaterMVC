@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RestaurantRaterMVC.Models.Restaurant;
 using RestaurantRaterMVC.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestaurantRaterMVC.Services.Restaurants;
 
@@ -35,7 +36,7 @@ namespace RestaurantRaterMVC.Services.Restaurants;
                 {
                     Id = r.Id,
                     Name = r.Name,
-                    Score = r.AverageRating
+                    Score = (double)r.AverageRating
                 })
                 .ToListAsync();
     
@@ -53,7 +54,7 @@ namespace RestaurantRaterMVC.Services.Restaurants;
                 Id = restaurant.Id,
                 Name = restaurant.Name,
                 Location = restaurant.Location,
-                Score = restaurant.AverageRating
+                Score = (double)restaurant.AverageRating
             };
         }
 

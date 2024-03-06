@@ -25,7 +25,7 @@ namespace RestaurantRaterMVC.Data
                 if (Ratings.Count == 0)
                     return 0;
 
-                return Ratings.Select(ref => r.Score).Sum() / Ratings.Count;
+                return Ratings.Select(r => r.Score).Sum() / Ratings.Count;
             }
         }
     }

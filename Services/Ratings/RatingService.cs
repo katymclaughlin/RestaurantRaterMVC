@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RestaurantRaterMVC.Data;
 using RestaurantRaterMVC.Models.Rating;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestaurantRaterMVC.Services.Ratings;
 
